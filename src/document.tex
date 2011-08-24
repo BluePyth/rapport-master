@@ -1,65 +1,46 @@
-\documentclass[12pt]{report}
+\documentclass[12pt]{book}
+\pagestyle{plain}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{graphicx}
 \title{Rapport de stage - eBusiness Information - 2011}
-\date{}
+\author{Romain \bsc{Sertelon}}
+\date{2 septembre 2011}
+
+\usepackage[top=2cm, bottom=2cm]{geometry}
+
+\renewcommand{\em}[1]{\textbf{#1}}
+
 \begin{document}
-  \chapter{Remerciements}
-  Remerciements des gens.
-  
-  //Table des matières
+\maketitle
 
 
+\frontmatter
+
+\chapter{Remerciements}
+Remerciements des gens.
+  
+%Table des matières
 
 
-  \chapter{Introduction}
-  \section{eBusiness Information et Excilys}
-  
-  eBusiness Information a été créée en l'an 2000 dans le but de répondre à des problématiques métier diverses grâce à la mise en place de solutions informatiques robustes, tout en mettant en valeur de savoir-faire humain qui amène à ces solutions.
-  
-  En effet, pour ses fondateurs, le service informatique est un métier d'hommes qui doivent avoir de plus en plus de compétences. En 2002, ils s'inspirent du commerce équitable et imaginent la notion de \em{Service équitable} qu'ils inscrivent dans une charte : la \em{Charte Excilys}.
-  
-  Cette notion consiste en la création d'un cercle vertueux profitant à tous les acteurs du service. Tout comme le commerce équitable, cette notion vise à profiter aux personnes qui produisent le service plutôt qu'aux intermédiaires seuls.
-  La \em{Charte Excilys} définit un ensemble de droits et de devoirs  e
-  
-  Depuis, plusieurs entreprises ont rejoint le groupe, elles sont aujourd'hui au nombre de sept : Adlys, Altendis, eBusiness Information, Edvance, Equitalis, SS2J et Visual3X. Chacune de ces entreprises à signé la charte et s'engage donc à fournir un \em{Service équitable}
-  
-  \section{Formation Java/JEE}
-  \section{Ma mission}
-  
+\mainmatter
 
+\include{introduction}
 
+\include{test_de_charge}
 
-
-  \chapter{De l'utilité des tests de charge}
-  \section{Outils de Stress}
-  \subsection{Tests de charge}
-    Contexte (autres types de tests)
-    Définition
-  \subsection{Outils existant}
   
-  \chapter{De l'utilité des tests de charge}
-  \section{Outils de Stress}
-  \subsection{Tests de charge}
-    Contexte (autres types de tests)
-    Définition
-  \subsection{Outils existant}
-  \section{Limitation des outils actuels}
-  \section{Gatling, une nouvelle approche}
-  \subsection{Threads vs Acteurs}
-  \subsection{GUI vs Scripts}
+\chapter{Conception}
+\section{Moteur d'exécution}
+\section{DSL}
+\section{Affichage de statistiques}
   
-  \chapter{Conception}
-  \section{Moteur d'exécution}
-  \section{DSL}
-  \section{Affichage de statistiques}
+\chapter{Implémentation}
+\section{Moteur d'exécution}
+\section{DSL}
+\section{Affichage de statistiques}
   
-  \chapter{Implémentation}
-  \section{Moteur d'exécution}
-  \section{DSL}
-  \section{Affichage de statistiques}
-  
-  \chapter{Conclusion}
+\chapter{Conclusion}
   
 \end{document}
 ​

@@ -1,0 +1,26 @@
+\chapter{Description du problème}
+
+\section{Les tests en génie logiciel}
+Afin de tester le comportement d'une application ou de l'un de ses composants, il existe différentes techniques. Généralement, on distingue :
+\begin{itemize}
+  \item \em{Les tests unitaires}. Ils permettent de vérifier le bon fonctionnement d'un composant en particulier, en général le comportement d'une méthode d'une classe dans certaines conditions. Ils faut donc en faire un grand nombre afin d'avoir une couverture de code maximale par les tests unitaires. Leur résultat permet de valider le fonctionnement de ce composant uniquement.
+  \item \em{Les tests fonctionnels}. Ceux-ci sont effectués à une échelle plus grande que les tests unitaires puisqu'ils testent le bon comportement d'un certain nombre de composants s'échangeant des messages (appels de méthode par exemple). Les tests fonctionnels permettent de s'assurer que l'application apporte bien les fonctionnalités qu'on attend d'elle, et qu'elles fonctionnent comme attendu.
+\end{itemize}
+
+On peut donc, avec ces deux types de tests, s'assurer du bon fonctionnement de l'application d'un point de vue fonctionnel.
+
+Cependant, il est une autre sorte de tests qu'il faut parfois réaliser, ce sont les tests de performance. Ces tests concernent particulièrement les applications à architecture \em{client-serveur} qui risquent d'être fortement sollicitées. On distingue deux types de tests de performances : 
+\begin{itemize}
+  \item \em{Les tests de charge}. Ils permettent de mesurer des performances en termes de temps de réponse du serveur en fonction du nombre d'utilisateurs connectés et des types de requêtes envoyées. On utilise ce type de test pour s'assurer que les clients pourront obtenir leur réponse dans un temps suffisament court.
+  \item \em{Les tests de stress}. Ces tests là permettent de tester le système au-delà de ses limites et de s'assurer qu'il est robuste. On réalise ces tests pour s'assurer qu'un serveur ne tombera pas sous une attaque de type \em{Denial of Service} par exemple.
+\end{itemize}
+
+\section{Motivations du projet}
+
+
+
+\subsection{Outils existant}
+\subsection{Limitation des outils actuels}
+\subsection{Gatling, une nouvelle approche}
+\subsubsection{Threads vs Acteurs}
+\subsubsection{GUI vs Scripts}
