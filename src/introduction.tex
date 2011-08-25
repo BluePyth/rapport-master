@@ -36,7 +36,7 @@ A la suite de la formation, chaque stagiaire se voit proposer un sujet de stage 
 
 \subsection{Capico}
 
-Afin de former ses stagiaires, et d'offrir à ses consultants la possibilité de se former facilement sur diverses technologies utilisées dans le domaine Java/JEE, les gérants d'eBusiness Information ont investi dans un outil de formation en ligne nommé \em{Capico}. Cet outil contient des cours (audio ou non) ainsi que des exercices et tp avec leur corrigé.
+Afin de former ses stagiaires, et d'offrir à ses consultants la possibilité de se former facilement sur diverses technologies utilisées dans le domaine Java/JEE, les gérants d'eBusiness Information ont investi dans le développement d'un outil de formation en ligne nommé \em{Capico}. Cet outil contient des cours (audio ou non) ainsi que des exercices et tp avec leur corrigé.
 
 Aujourd'hui, Capico\footnote{Capico pour \em{Capi}talisation des \em{co}nnaissances} est bien plus qu'un outil de formation interne. En effet, avec le temps, et grâce aux investissements en R\&D d'Excilys, ce logiciel est devenu une plateforme d'e-coaching qui propose des cours gratuits du CP au CM2, en français et mathématiques et qui est récemment entré en compétition dans un appel d'offre du département des Hauts-de-Seine afin de moderniser ses collèges.  
 
@@ -46,28 +46,36 @@ Aujourd'hui, Capico\footnote{Capico pour \em{Capi}talisation des \em{co}nnaissan
 La période de six semaines de formation commence par des cours sur Capico couvrant diverses technologies mais aussi des notions sur les méthodes agiles, en particulier \em{eXtreme Programming}. Les technologies abordées sont les suivantes :
 
 \begin{itemize}
-  \item UML / Java 5
-  \item JEE JSP+Servlets / Java EE 6
-  \item JDBC / Hibernate
-  \item Log4j / Slf4j
-  \item JUnit
-  \item Spring
-  \item Maven
-  \item Subversion / Git
-  \item Flex
+  \item \em{UML / Java 5} - Un rappel sur Java et le langage de formalisation UML ;
+  \item \em{JEE JSP+Servlets / Java EE 6} - Un rappel sur Java Enterprise (EJB, Servlet, JSP, JSF) ;
+  \item \em{JDBC / Hibernate} - Un cours sur JDBC et Hibernate, l'ORM Java le plus répandu ;
+  \item \em{Log4j / Slf4j} - Un cours sur la journalisation en Java ;
+  \item \em{JUnit} - Un cours sur le framework JUnit qui permet de faire du test unitaire ;
+  \item \em{Spring} - Un cours sur le framework Spring (IoC, MVC, etc.) beaucoup utilisé en entreprise ;
+  \item \em{Maven} - Un cours sur un gestionnaire de dépendances de plus en plus utilisé au sein de la communauté Java ;
+  \item \em{Subversion / Git} - Un cours sur les deux gestionnaires de sources ;
+  \item \em{Flex} - Un cours expliquant les bases du développement avec Flex.
 \end{itemize}
 
 Un tour d'horizon des technologies les plus utilisées par les clients de l'entreprise, ainsi que les technologies utilisées au sein du projet Capico, chaque stagiaire passant sur ce projet avant d'être affecté à une mission ou à un projet différent.
 
 \subsubsection{Réalisation d'un projet}
 
-La formation, est complétée par la mise en pratique des cours grâce à la réalisation d'une application d'ebanking dans des conditions agiles. En mode eXtreme Programming, mon groupe de six stagiaires à réalisé une application\footnote{Disponible sur Github : http://github.com/BluePyth/patricks-bank} sur cinq semaines, soit cinq itérations en programmant en binômes. 
+La formation, est complétée par la mise en pratique des cours grâce à la réalisation d'une application d'ebanking dans des conditions agiles. Notre groupe de six stagiaires à réalisé son application\footnote{Disponible sur Github : http://github.com/BluePyth/patricks-bank} sur cinq semaines, soit cinq itérations en programmant en binômes tel que préconisé par la méthode eXtreme Programming. La figure \ref{patricks_bank} représente le site que nous avons réalisé.
 
-Nous avons pu ainsi nous confronter aux technologies que nous n'avions jusqu'alors pas pratiquées : Intégration Continue avec Jenkins, utilisation de Google code, etc. 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=400pt]{img/patricks_bank.png}
+\end{center}
+\caption{Patrick's Bank - Visualisation du détail d'un compte}
+\label{patricks_bank}
+\end{figure}
+
+Nous avons pu ainsi nous confronter aux technologies que nous n'avions jusqu'alors pas pratiquées : Intégration Continue avec Jenkins, utilisation de Google code, de Maven, etc. 
 
 \section{Ma mission}
-A la fin de la période de formation, j'ai commencé à travailler sur Capico, comme tous les autres stagiaires, puis Stéphane Landelle m'a proposé de travailler avec lui sur une idée dont il avait réalisé une \em{Preuve de Concept}. Cette idée concerne la création d'un nouvel outil de test de montée en charge, ou injecteur HTTP.
+A la fin de la période de formation, j'ai commencé à travailler sur Capico, comme tous les autres stagiaires, puis Stéphane Landelle m'a proposé de travailler avec lui sur une idée dont il avait réalisé une \em{Preuve de Concept}. Cette idée concerne la création d'un nouvel outil de test de montée en charge - ou injecteur HTTP - nommé Gatling.
 
-Dès lors, ma mission durant mon stage a été de travailler sur ce nouveau projet, le concevoir, puis implémenter les fonctionnalités que l'outil doit proposer. L'objet de ce rapport est donc de présenter la manière dont j'ai réalisé cet outil.
+Dès lors, ma mission a été de travailler sur ce nouveau projet, le concevoir, puis implémenter les fonctionnalités que l'outil doit proposer. L'objet de ce rapport est donc de présenter la manière dont j'ai réalisé cet outil.
 
 Chap X présente ceci, etc.

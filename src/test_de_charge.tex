@@ -1,6 +1,7 @@
 \chapter{Description du problème}
 
 \section{Les tests en génie logiciel}
+\subsection{Généralités}
 Afin de tester le comportement d'une application ou de l'un de ses composants, il existe différentes techniques. Généralement, on distingue :
 \begin{itemize}
   \item \em{Les tests unitaires}. Ils permettent de vérifier le bon fonctionnement d'un composant en particulier, en général le comportement d'une méthode d'une classe dans certaines conditions. Ils faut donc en faire un grand nombre afin d'avoir une couverture de code maximale par les tests unitaires. Leur résultat permet de valider le fonctionnement de ce composant uniquement.
@@ -15,12 +16,33 @@ Cependant, il est une autre sorte de tests qu'il faut parfois réaliser, ce sont
   \item \em{Les tests de stress}. Ces tests là permettent de tester le système au-delà de ses limites et de s'assurer qu'il est robuste. On réalise ces tests pour s'assurer qu'un serveur ne tombera pas sous une attaque de type \em{Denial of Service} par exemple.
 \end{itemize}
 
+\subsection{Principe des tests de charge}
+Afin de tester la résistance d'une application et de l'architecture qui l'héberge, on utilise des outils de test qui permettent de simuler des milliers d'utilisateurs.
+
+Pour simuler ces utilisateurs, on définit des scénarios d'utilisation, chaque scénario représentant un comportement utilisateur typique. On peut par exemple simuler l'utilisation d'un site web par un expert - utilisation de recherche avancée, comparaisons multiples, \ldots - ou par un débutant - recherche simple, clic sur les publicités, etc.
+
+Ces scénarios sont ensuite exécutés par l'outil un certain nombre de fois, en parallèle, afin d'imposer une charge au serveur testé. Une fois l'exécution des scénarios terminée, l'outil fourni en général des informations sur leur déroulement: temps de réponse moyen, nombre de requêtes par seconde, etc.
+
 \section{Motivations du projet}
+\subsection{Outils Existants}
+Etant donné que l'idée de faire des tests de charge existe depuis longtemps, un certain nombre d'outils logiciels destinés à exécuter ce type de tests est déjà disponible. Voici une liste des principaux outils existants lors de l'écriture de ce rapport.
 
+\subsubsection{JMeter} 
+JMeter est un projet de la fondation Apache qui permet de faire du test de charge. Il est assez connu dans la communauté Java et offre une interface graphique, ainsi que des modules lui permettant de tester des serveurs avec différents protocoles, ainsi que des modules de visualisation des résultats des tests. La construction des scénarios 
 
+TODO
 
-\subsection{Outils existant}
-\subsection{Limitation des outils actuels}
+\subsubsection{LoadUI}
+TODO
+\subsubsection{FunkLoad}
+TODO
+
+\subsection{Exposé de la problématique}
+\subsubsection{Limitations des outils actuels}
+
 \subsection{Gatling, une nouvelle approche}
+
 \subsubsection{Threads vs Acteurs}
 \subsubsection{GUI vs Scripts}
+
+\subsection{Requirements}
