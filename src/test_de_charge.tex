@@ -17,32 +17,61 @@ Cependant, il est une autre sorte de tests qu'il faut parfois réaliser, ce sont
 \end{itemize}
 
 \subsection{Principe des tests de charge}
+\subsubsection{Simulation d'utilisateurs}
 Afin de tester la résistance d'une application et de l'architecture qui l'héberge, on utilise des outils de test qui permettent de simuler des milliers d'utilisateurs.
 
 Pour simuler ces utilisateurs, on définit des scénarios d'utilisation, chaque scénario représentant un comportement utilisateur typique. On peut par exemple simuler l'utilisation d'un site web par un expert - utilisation de recherche avancée, comparaisons multiples, \ldots - ou par un débutant - recherche simple, clic sur les publicités, etc.
 
 Ces scénarios sont ensuite exécutés par l'outil un certain nombre de fois, en parallèle, afin d'imposer une charge au serveur testé. Une fois l'exécution des scénarios terminée, l'outil fourni en général des informations sur leur déroulement: temps de réponse moyen, nombre de requêtes par seconde, etc.
 
+\subsubsection{Test de charge brute}
+Une autre approche du test de charge consiste à déterminer le nombre maximal de requêtes par seconde que l'application peut supporter. Ce qui peut être utile d'un point de vue technique, mais qui ne donne aucune idée du nombre d'utilisateurs qui pourront utiliser l'application simultanément.
+
 \section{Motivations du projet}
 \subsection{Outils Existants}
-Etant donné que l'idée de faire des tests de charge existe depuis longtemps, un certain nombre d'outils logiciels destinés à exécuter ce type de tests est déjà disponible. Voici une liste des principaux outils existants lors de l'écriture de ce rapport.
+Etant donné que l'idée de faire des tests de charge existe depuis longtemps, un certain nombre d'outils logiciels destinés à exécuter ce type de tests est déjà disponible sur la JVM. Voici une liste des principaux outils open source et/ou gratuits existants lors de l'écriture de ce rapport.
 
 \subsubsection{JMeter} 
-JMeter est un projet de la fondation Apache qui permet de faire du test de charge. Il est assez connu dans la communauté Java et offre une interface graphique, ainsi que des modules lui permettant de tester des serveurs avec différents protocoles, ainsi que des modules de visualisation des résultats des tests. La construction des scénarios 
+JMeter est un projet de la fondation Apache qui permet de faire du test de charge. Il est assez connu dans la communauté Java et offre une interface graphique, ainsi que des modules lui permettant de tester des serveurs avec différents protocoles, ainsi que des modules de visualisation des résultats des tests. La construction des scénarios se fait via une interface graphique, sous forme d'arbre, comme montré Figure \ref{jmeter_scenario}.
 
-TODO
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=200pt]{img/jmeter.jpg}
+\end{center}
+\caption{Interface graphique de JMeter}
+\label{jmeter_scenario}
+\end{figure}
 
 \subsubsection{LoadUI}
-TODO
+LoadUI est un projet de la société SmartBear (anciennement Eviware) qui a créé le logiciel SoapUI utilisé pour tester des webservices de manière fonctionnelle. LoadUI a été créé suite à une forte demande de la communauté d'utilisateurs de SoapUI et intègre donc logiquement ce dernier. Son interface utilise JavaFX et est très soignée, à l'inverse de JMeter comme le montre la Figure \ref{loadui_ui}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=200pt]{img/loadui.jpg}
+\end{center}
+\caption{Interface de LoadUI}
+\label{loadui_ui}
+\end{figure}
+
 \subsubsection{FunkLoad}
 TODO
 
-\subsection{Exposé de la problématique}
+\subsection{Exposé du problème}
 \subsubsection{Limitations des outils actuels}
+Les outils disponibles pour faire du test de charge fonctionnement mais ont quelques défauts.
+\paragraph{Interface Graphique}
+Les outils tels que JMeter ou LoadUI ne proposent qu'une façon de créer des scénarios et de les exécuter: via une interface graphique. Il n'y a aucun moyen de passer outre et si l'on veut modifier les fichiers sources des scénario à la main (si on n'a pas le logiciel sous la main par exemple), cela se révèle complexe car les fichiers n'ont pas été prévus pour être lisible par des hommes, mais pas des ordinateurs.
 
-\subsection{Gatling, une nouvelle approche}
+\paragraph{Vocabulaire utilisé}
+De plus, ces interfaces graphiques contiennent beaucoup de notions que l'utilisateur doit maîtriser en plus de l'application à tester. Par exemple, pour LoadUI, on trouve des load generators, des runners, etc. Les développeurs de JMeter, eux, ont proposé un vocabulaire plus proche de l'implémentation de leur application que du domaine visé par l'application : Thread Groups, Controllers, Listeners, etc.
 
-\subsubsection{Threads vs Acteurs}
-\subsubsection{GUI vs Scripts}
+\paragraph{Performances}
+Afin d'effectuer des tests de charge significatifs, il faut être capable de simuler un grand nombre d'utilisateurs ou de requêtes par seconde. Les outils existants consomment beaucoup de mémoire et de puissance CPU\footnote{Des benchmarks sont disponibles en annexe} et proposent une solution afin de remédier à ce problème : la distribution des tests sur plusieurs machines. Cela induit donc des coûts supplémentaires et oblige le testeur à mettre des machines en réseau.
 
-\subsection{Requirements}
+\subsubsection{Gatling}
+Le projet Gatling naît donc d'une volonté d'aller au-delà de ces limitations et de proposer à ses futurs utilisateurs un logiciel :
+\begin{itemize}
+  \item \em{Performant}. Galting permettra d'effectuer des tests complexes et lourds avec à l'esprit l'optimisation de ses performances.
+  \item \em{Simple d'utilisation}. Gatling offrira une interface utilisateur simple à utiliser et rapide à prendre en main.
+  \item \em{Accessible à tous}. Gatling utilisera un vocabulaire proche du domaine du test de charge.
+\end{itemize}

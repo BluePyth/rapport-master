@@ -10,6 +10,7 @@
 \usepackage[top=2cm, bottom=2cm]{geometry}
 
 \renewcommand{\em}[1]{\textbf{#1}}
+\newcommand{\en}[1]{\textit{#1}}
 
 \begin{document}
 \maketitle
@@ -20,7 +21,7 @@
 \chapter{Remerciements}
 Remerciements des gens.
   
-%Table des matières
+\tableofcontents
 
 
 \mainmatter
@@ -29,7 +30,9 @@ Remerciements des gens.
 
 \include{test_de_charge}
 
-  
+\include{problematiques}
+
+
 \chapter{Conception}
 \section{Moteur d'exécution}
 \section{DSL}

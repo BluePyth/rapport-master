@@ -1,0 +1,32 @@
+\chapter{Problématiques}
+\section{Cadre d'utilisation de Gatling}
+La cible première de Gatling est l'ensemble des applications web modernes. Cela signifie que l'outil doit pouvoir envoyer des requêtes sur le protocole HTTP ou HTTPS et fournir la possibilité de simuler des requêtes AJAX\footnote{AJAX signifie \en{Asynchronous Javascript And XML} : Javascript et XML Asynchrones}. Dans les évolutions suivantes, il est prévu de supporter les applications réalisées avec le framework GWT ou avec Flex. Plus tard encore, il est prévu l'ajout de modules permettant de tester des serveurs de données, des annuaires LDAP, etc.
+
+Afin d'offrir des tests ayant une réelle valeur aux yeux des testeurs, mais aussi de leurs dirigeants, Gatling effectuera des simulations d'utilisateurs réalisant des scénarios établis par le testeur. La difficulté de ce genre de test réside dans la rédaction des scénarios, qui doivent être bien faits pour représenter au mieux la réalité.
+
+Si l'écriture des scénarios est laissée aux testeurs, Gatling tentera de simplifier au maximum cette écriture, afin de permettre au testeur de se concentrer sur le contenu de ses scénarios plutôt que sur la façon dont il devra les écrire. 
+
+\section{Ecriture de scénarios}
+L'écriture des scénarios doit donc être fluide, et le plus naturelle possible pour le testeur. Cela passe donc par deux choses : l'interface de l'outil et le vocabulaire utilisé.
+
+\subsection{Interface de l'outil}
+L'interface de l'outil doit être la plus simple possible afin de ne pas rendre son utilisation trop complexe. Elle peut être graphique, comme les outils présentés plus haut dans ce rapport, ou alors en ligne de commande. 
+
+Gatling étant amené à être exécuté sur des serveurs, sans interface graphique, il semble logique de privilégier l'interface par ligne de commande. Celle-ci pourrait d'ailleurs rebuter les utilisateurs peu expérimentés de l'outil, cependant, le test de charge est souvent réalisé par des personnes qui connaissent bien l'environnement informatique, soit parce qu'ils ont fait du développement (ce sont parfois les développeurs eux-mêmes qui font ce travail), ou parce qu'ils administrent des serveurs.
+
+\subsection{Utilisation d'un DSL}
+L'utilisation de la ligne de commande seule limite considérablement les possibilités de création d'un scénario. En effet, on ne peut fournir d'outils graphiques comme le font JMeter et LoadUI. Cependant, il existe un moyen efficace d'écrire des scénarios : les \em{DSL}. Un DSL, ou \en{Domain Specific Language}, permet de représenter un problème particulier, ou, dans le cas de Gatling, un scenario, ou une simulation.
+
+L'utilisation de DSL apporte plusieurs avantages :
+\begin{itemize}
+  \item \em{Langage naturel}. Un DSL bien écrit permet d'écrire de façon quasiment naturelle ce que l'on veut représenter.
+  \item Utilisation des fonctions de base d'un langage
+  \item Autocomplétion
+\end{itemize}
+
+
+
+\section{Performances}
+
+\subsubsection{Threads vs Acteurs}
+\subsubsection{GUI vs Scripts}
