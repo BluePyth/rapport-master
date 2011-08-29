@@ -1,25 +1,30 @@
 \documentclass[12pt]{book}
 \pagestyle{plain}
-\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage[top=2cm, bottom=2cm]{geometry}
+
 \title{Rapport de stage - eBusiness Information - Gatling}
 \author{Romain \bsc{Sertelon}}
-\date{2 septembre 2011}
-
-\usepackage[top=2cm, bottom=2cm]{geometry}
+\date{\today}
 
 \renewcommand{\em}[1]{\textbf{#1}}
 \newcommand{\en}[1]{\textit{#1}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \begin{document}
-\maketitle
 
+\include{title}
 
 \frontmatter
 
 \chapter{Remerciements}
-Remerciements des gens.
+Remerciement des gens.
   
 \tableofcontents
 
@@ -32,11 +37,7 @@ Remerciements des gens.
 
 \include{problematiques}
 
-
-\chapter{Conception}
-\section{Moteur d'exécution}
-\section{DSL}
-\section{Affichage de statistiques}
+\include{conception}
   
 \chapter{Implémentation}
 \section{Moteur d'exécution}
