@@ -26,7 +26,7 @@ L'utilisation de DSL apporte plusieurs avantages :
   \end{lstlisting}
   \item \em{Utilisation des fonctions de base d'un langage}. Etant donné qu'un DSL est écrit avec un langage de programmation et compilé (ou exécuté en tant que script), on peut naturellement y utiliser toutes les fonctionnalités apportées par le langage si besoin. En effet, supposons que l'on veuille créer un point avec une ordonnée avec une valeur égale à deux fois la valeur de l'abscisse, on pourra écrire :
   \begin{lstlisting}
-  int x = 3;
+  val x: Int = 3;
   // Creates a point named A with coordinates (x, 2x)
   createPoint "A" withAbscissa x andOrdinate 2*x;
   \end{lstlisting}
@@ -129,3 +129,37 @@ object HelloWorld {
 \end{lstlisting}
 
 La bibliothèque pour le modèle d'acteurs se nomme \em{Akka}. Ses créateurs ont rejoint l'entreprise TypeSafe qui édite le langage Scala, la bibliothèque sera donc maintenue et bénéficiera de l'expertise des créateurs de Scala. Elle est, de plus, Open Source.
+
+\section{Rapports de test}
+\subsection{Types de rapports}
+
+Comme tout bon outil de test, Gatling devra fournir au testeur un moyen de visualiser facilement ce qu'il s'est passé durant le test :
+\begin{itemize}
+  \item Le nombre d'utilisateurs actifs à n'importe quel instant de la simulation
+  \item Le temps de réponse des différentes requêtes durant le test
+  \item Le nombre de requêtes envoyées par seconde
+  \item \ldots
+\end{itemize}
+
+Afin de montrer ces résultats aux testeurs, il existe plusieurs options : 
+\begin{itemize}
+  \item Une version texte. Cette version ne contient pas d'images et peut être visualisée avec n'importe quel éditeur de texte. Cependant, le déchiffrage de ce type de rapports, lorsqu'il y a des dizaines de millier de requêtes effectuées dans une simulation, peut s'avérer très complexe, et peu utile aux testeurs.
+  \item Une version graphique. Cette version est sans doute la plus simple à interpréter et permet de visualiser rapidement le comportement de l'application durant les tests.
+  \item Une version brute. Cette version, bien que plus compliquée à lire qu'une version texte offre l'avantage d'être importée dans des logiciels de type tableur (Microsoft Excel, LibreOffice Calc, Google docs, etc.)
+\end{itemize}
+
+Gatling devra donc offrir des rapports sous forme graphique et sous forme brute, type fichiers CSV.
+
+\subsection{Visualisation des données}
+
+Afin de visualiser les données sous forme graphique, il existe, là aussi, plusieurs solutions. On peut faire un module logiciel type application lourde, générer des fichiers PDF, ou générer des rapports au format HTML. 
+
+L'interface de l'outil étant en ligne de commandes, il est logique d'écarter la création d'un module logiciel. Il reste donc la génération de fichiers PDF ou HTML.
+
+Les fichiers HTML ont l'avantage d'être visualisable sur n'importe quel ordinateur possédant un navigateur web, on touche ainsi à tous types d'appareils : ordinateurs, smartphones, tablettes. Les fichiers PDF, eux, nécessitent l'installation d'un logiciel tiers.
+
+De plus, les fichiers HTML peuvent être rendus dynamiques, autorisant, plus tard, la visualisation des données en temps réel, ce qui n'est pas possible avec le format PDF qui est statique et ne peut être généré qu'à la fin du test.
+
+Les tests de charge demandant une infrastructure particulière afin d'être menés à bien, il est certain que Gatling sera amené à être utilisé sur un serveur dédié à cet usage. C'est pour répondre à ceci que Gatling offrira une interface web dans le futur, faisant ainsi des rapports HTML une solution privilégiée.
+
+La génération de rapports PDF offre par contre un bon complément au rapport sous forme HTML, car comme son nom l'indique\footnote{\en{Portable Document format}}, il est portable. La génération de rapports au format PDF est donc prévue dans les futures versions de Gatling. 
