@@ -27,10 +27,10 @@ Gatling, comme tout programme informatique, accepte des données en entrée et r
 \subsection{Application modulaire}
 Gatling est découpé en différents modules interagissant les uns avec les autres. Ce découpage permet de créer des APIs internes, ce qui facilite l'ajout de fonctionnalités similaires comme, par exemple, l'ajout du support d'un protocole autre que HTTP. La figure \ref{arch} montre les modules principaux nécessaire au test d'applications web standard et présents dans la première version de l'application :
 \begin{itemize}
-  \item Gatling App. C'est l'interface avec l'utilisateur de l'application, en l'occurence par la ligne de commande.
-  \item Gatling Http. Ce module fournit les classes permettant de supporter le protocole HTTP.
-  \item Gatling Statistics. Ce module fournit les classes permettant de générer les rapports.
-  \item Gatling Core. Ce module contient toutes les fonctionnalités au coeur de l'application.
+  \item \em{Gatling App}. C'est l'interface avec l'utilisateur de l'application, en l'occurence par la ligne de commande.
+  \item \em{Gatling Http}. Ce module fournit les classes permettant de supporter le protocole HTTP.
+  \item \em{Gatling Statistics}. Ce module fournit les classes permettant de générer les rapports.
+  \item \em{Gatling Core}. Ce module contient toutes les fonctionnalités au coeur de l'application.
 \end{itemize}
 
 \begin{figure}[h]
@@ -52,14 +52,25 @@ Afin de permettre à l'application comme à l'utilisateur de savoir où se trouv
 \label{folders}
 \end{figure}
 
-Le dossier assets contient des fichiers utiles à la génération des rapports Les dossiers bin et lib contiennent les bibliothèques ainsi que l'exécutable qui permet de lancer Gatling. Le dossier conf contient le(s) fichier(s) de configuration de Gatling. Le dossier results contient les résultats de tests, rangés dans des dossiers portant comme nom la date et l'heure d'exécution du test.
+Le dossier \em{assets} contient des fichiers utiles à la génération des rapports Les dossiers \em{bin} et \em{lib} contiennent les bibliothèques ainsi que l'exécutable qui permet de lancer Gatling. Le dossier \em{conf} contient le(s) fichier(s) de configuration de Gatling. Le dossier \em{results} contient les résultats de tests, rangés dans des dossiers portant comme nom la date et l'heure d'exécution du test.
 
-Enfin, le dossier user-files contient les différents fichiers que l'utilisateur crée pour écrire ses scénarios. Le dossier scenarios contient les scripts écrits avec le DSL de Gatling. Le dossier request-bodies contient les corps de requête à être envoyés tels quels, alors que le dossier template contient des templates pouvant être complétés lors de l'exécution du scénario avant d'être envoyés. Le dossier seeds quant à lui contient les jeux de données utilisés par les feeders.
+Enfin, le dossier \em{user-files} contient les différents fichiers que l'utilisateur crée pour écrire ses scénarios. Le dossier \em{scenarios} contient les scripts écrits avec le DSL de Gatling. Le dossier \em{request-bodies} contient les corps de requête à être envoyés tels quels, alors que le dossier \em{template} contient des templates pouvant être complétés lors de l'exécution du scénario avant d'être envoyés. Le dossier \em{seeds} quant à lui contient les jeux de données utilisés par les feeders.
 
 \section{Modules de l'application}
+\subsection{Gatling App}
+Ce module permet de proposer un menu au testeur, et ensuite, de charger dynamiquement les scripts correspondant à la simulation qui doit être exécutée. Une fois la simulation déroulée, la génération des rapports est exécutée et l'application s'arrête une fois que c'est terminé. Le menu proposé à l'utilisateur est montré sur la figure \ref{menu_console}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics{img/menu_console.png}
+\end{center}
+\caption{Menu de sélection de la simulation à démarrer}
+\label{menu_console}
+\end{figure}
+
 \subsection{Gatling Core}
 \subsubsection{Présentation}
-Ce module contient toutes les fonctionnalités au coeur de Gatling, et sert aussi de base aux autres en fournissant une API commune à tous les modules, notamment en ce qui concerne l'action requête. Le schéma de la figure \ref{gatling_core} présente les divers composants de ce module.
+Ce module contient toutes les fonctionnalités au coeur de Gatling, et sert aussi de base aux autres en fournissant une API commune à tous les modules, notamment en ce qui concerne l'action \em{requête} qui servira de base pour tous les protocoles implémentés à l'avenir. Le schéma de la figure \ref{gatling_core} présente les divers composants de ce module.
 
 \begin{figure}[h]
 \begin{center}
@@ -99,14 +110,14 @@ Ce module permet d'utiliser Gatling pour tester des applications qui utilisent l
 \subsubsection{Composants}
 Les composants de Gatling HTTP sont les suivants :
 \begin{description}
-\item[HttpRequest] Ce composant est un wrapper de la classe Request du client HTTP utilisé : AsyncHttpClient. Elle permet, entre autres, de définir le DSL permettant de créer les requêtes HTTP.
+\item[HttpRequest] Ce composant est un wrapper de la classe Request du client HTTP utilisé : AsyncHttpClient\cite{www_ahc}. Elle permet, entre autres, de définir le DSL permettant de créer les requêtes HTTP.
 \item[HttpRunner] Ce composant, comme expliqué dans la section \ref{sec_core_comp}, programme l'exécution des scénarios.
 \item[HttpProcessor] Ce composant définit les captures et assertions qui pourront être utilisés sur les requêtes HTTP du scénario.
 \end{description}
 
 \subsection{Gatling Statistics}
 \subsubsection{Présentation}
-Ce module permet de générer les rapports de simulation et de calculer les statistiques nécessaires à ces mêmes rapports. Sa composition est présentée figure \ref{gatling_stats}. Il existe actuellement trois entités différentes pour lesquelles des statistiques sont calculées : les sessions, les requêtes d'un point de vue global et les détails pour chaque requête.
+Ce module permet de générer les rapports de simulation et de calculer les statistiques nécessaires à ces mêmes rapports. Sa composition est présentée figure \ref{gatling_stats}. Il existe actuellement trois entités différentes pour lesquelles des statistiques sont calculées : les sessions, les requêtes d'un point de vue global et des détails pour chaque requête.
 
 \begin{figure}[h]
 \begin{center}
@@ -117,7 +128,7 @@ Ce module permet de générer les rapports de simulation et de calculer les stat
 \end{figure}
 
 \subsubsection{Fonctionnement}
-Les statistiques sont générés selon le modèle de la figure \ref{stats_gen}. Lors de l'exécution du scénario, le moteur enregistre les résultats de chaque requête dans un fichier. Ce fichier est ensuite analysé par un extracteur de données qui récupère et formatte les données utiles à la génération d'un graphique. Ces données sont ensuite mise en forme par les presenters et enfin, un fichier de rapport est créé au format HTML grâce à l'utilisation de templates, comme vu section \ref{sec_scalate}. En parallèle de la génération de rapports au format HTML, des fichiers au format TSV sont créés.
+Les statistiques sont générées selon le modèle de la figure \ref{stats_gen}. Lors de l'exécution du scénario, le moteur enregistre les résultats de chaque requête dans un fichier. Ce fichier est ensuite analysé par un extracteur de données qui récupère et formatte les données utiles à la génération d'un graphique. Ces données sont ensuite mise en forme par les presenters et enfin, un fichier de rapport est créé au format HTML grâce à l'utilisation de templates, comme vu section \ref{sec_scalate}. En parallèle de la génération de rapports au format HTML, des fichiers au format TSV sont créés.
 
 \begin{figure}[h]
 \begin{center}

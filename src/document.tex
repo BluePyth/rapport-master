@@ -7,13 +7,17 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage[table]{xcolor}
-\usepackage[top=2cm, bottom=2cm]{geometry}
+\usepackage[top=2cm, bottom=2cm, left=3cm, right=2cm]{geometry}
 
 \title{Rapport de stage - eBusiness Information - Gatling}
 \author{Romain \bsc{Sertelon}}
 \date{\today}
 
 \renewcommand{\em}[1]{\textbf{#1}}
+\addto\captionsfrench{
+  \renewcommand{\contentsname}{Sommaire}
+}
+
 \newcommand{\en}[1]{\textit{#1}}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
@@ -31,11 +35,12 @@
 
 \frontmatter
 
-\chapter{Remerciements}
-Remerciement des gens.
+\include{thanks}
   
 \tableofcontents
+\listoffigures
 
+\include{glossaire}
 
 \mainmatter
 
@@ -46,8 +51,13 @@ Remerciement des gens.
 \include{problematiques}
 
 \include{conception}
-  
-\chapter{Conclusion}
-  
+
+\backmatter
+
+\include{conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
 \end{document}
 ​
