@@ -53,23 +53,19 @@ LoadUI est un projet de la société SmartBear (anciennement Eviware) qui a cré
 \label{loadui_ui}
 \end{figure}
 
-\subsubsection{FunkLoad}
-TODO
-
-\subsection{Exposé du problème}
-\subsubsection{Limitations des outils actuels}
+\subsection{Limitations des outils actuels}
 Les outils disponibles pour faire du test de charge fonctionnent bien mais ont quelques défauts.
-\paragraph{Interface Graphique}
+\subsubsection{Interface Graphique}
 Les outils tels que JMeter ou LoadUI ne proposent qu'une façon de créer des scénarios et de les exécuter: via une interface graphique. Il n'y a aucun moyen de passer outre et si l'on veut modifier les fichiers sources des scénario à la main (si on n'a pas le logiciel sous la main par exemple), cela se révèle complexe car les fichiers n'ont pas été prévus pour être lisible par des hommes, mais pas des ordinateurs.
 
-\paragraph{Vocabulaire utilisé}
+\subsubsection{Vocabulaire utilisé}
 De plus, ces interfaces graphiques contiennent beaucoup de notions que l'utilisateur doit maîtriser en plus de l'application à tester. Par exemple, pour LoadUI, on trouve des load generators, des runners, etc. Les développeurs de JMeter, eux, ont proposé un vocabulaire plus proche de l'implémentation de leur application que du domaine visé par l'application : Thread Groups, Controllers, Listeners, etc.
 
-\paragraph{Performances}
+\subsubsection{Performances}
 \label{pb_perfs}
 Afin d'effectuer des tests de charge significatifs, il faut être capable de simuler un grand nombre d'utilisateurs ou de requêtes par seconde. Les outils existants consomment beaucoup de mémoire et de puissance CPU\footnote{Des benchmarks sont disponibles en annexe} et proposent une solution afin de remédier à ce problème : la distribution des tests sur plusieurs machines. Cela induit donc des coûts supplémentaires et oblige le testeur à mettre des machines en réseau.
 
-\subsubsection{Gatling}
+\subsection{Gatling}
 Le projet Gatling naît donc d'une volonté d'aller au-delà de ces limitations et de proposer à ses futurs utilisateurs un logiciel :
 \begin{itemize}
   \item \em{Performant}. Galting permettra d'effectuer des tests complexes et lourds avec à l'esprit l'optimisation de ses performances.
