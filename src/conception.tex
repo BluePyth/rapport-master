@@ -1,4 +1,6 @@
 \chapter{Conception de Gatling}
+\label{chap_conception}
+
 \section{Architecture de Gatling}
 \subsection{Entrées \& sorties}
 Gatling, comme tout programme informatique, accepte des données en entrée et renvoie des données en sortie. Les entrées sont créées par l'utilisateur de l'outil, tandis que les sorties sont destinées à être interprétées par ce même utilisateur. La figure \ref{io} représente les entrées et sorties de Gatling, elles sont composées de :
@@ -7,12 +9,12 @@ Gatling, comme tout programme informatique, accepte des données en entrée et r
   \item Entrées
   \begin{itemize}
 	\item \em{Scripts}. Les scripts sont des fichiers scala qui contiennent les scénarios et simulations que le testeur veut exécuter.
-  	\item \em{Seeds}. Les seeds\footnote{Graines en français} contiennent les données qui seront utilisées par les feeders dans les scénarios.
+  	\item \em{Seeds}. Les seeds\footnote{Graines en français} contiennent les données qui seront utilisées par les feeders\footnote{Voir section \ref{feeders} p.\pageref{feeders}} dans les scénarios.
   	\item \em{Bodies}. Les Bodies sont les corps envoyés avec les requêtes de type POST ou PUT.
   \end{itemize}
   \item Sorties
   \begin{itemize}
-    \item \em{Rapports}. Les rapports générés au format HTML.
+    \item \em{Rapports}. Les rapports générés au format HTML et également exportés en CSV
   \end{itemize}
 \end{itemize}
 
@@ -25,10 +27,10 @@ Gatling, comme tout programme informatique, accepte des données en entrée et r
 \end{figure}
 
 \subsection{Application modulaire}
-Gatling est découpé en différents modules interagissant les uns avec les autres. Ce découpage permet de créer des APIs internes, ce qui facilite l'ajout de fonctionnalités similaires comme, par exemple, l'ajout du support d'un protocole autre que HTTP. La figure \ref{arch} montre les modules principaux nécessaire au test d'applications web standard et présents dans la première version de l'application :
+Gatling est découpé en différents modules interagissant les uns avec les autres. Ce découpage permet de créer des APIs\footnote{\en{Application Programmable Interface}. Les APIs sont des interfaces utilisables par d'autre logiciels afin d'utiliser celui qui les fournit} internes, ce qui facilite l'ajout de fonctionnalités similaires comme, par exemple, l'ajout du support d'un protocole autre que HTTP. La figure \ref{arch} montre les modules principaux nécessaires au test d'applications web standard et présents dans la première version de l'application :
 \begin{itemize}
   \item \em{Gatling App}. C'est l'interface avec l'utilisateur de l'application, en l'occurence par la ligne de commande.
-  \item \em{Gatling Http}. Ce module fournit les classes permettant de supporter le protocole HTTP.
+  \item \em{Gatling HTTP}. Ce module fournit les classes permettant de supporter le protocole HTTP.
   \item \em{Gatling Statistics}. Ce module fournit les classes permettant de générer les rapports.
   \item \em{Gatling Core}. Ce module contient toutes les fonctionnalités au coeur de l'application.
 \end{itemize}
@@ -52,7 +54,7 @@ Afin de permettre à l'application comme à l'utilisateur de savoir où se trouv
 \label{folders}
 \end{figure}
 
-Le dossier \em{assets} contient des fichiers utiles à la génération des rapports Les dossiers \em{bin} et \em{lib} contiennent les bibliothèques ainsi que l'exécutable qui permet de lancer Gatling. Le dossier \em{conf} contient le(s) fichier(s) de configuration de Gatling. Le dossier \em{results} contient les résultats de tests, rangés dans des dossiers portant comme nom la date et l'heure d'exécution du test.
+Le dossier \em{assets} contient des fichiers utiles à la génération des rapports. Les dossiers \em{bin} et \em{lib} contiennent les bibliothèques ainsi que l'exécutable qui permet de lancer Gatling. Le dossier \em{conf} contient le(s) fichier(s) de configuration de Gatling. Le dossier \em{results} contient les résultats de tests, rangés dans des dossiers portant comme nom la date et l'heure d'exécution du test.
 
 Enfin, le dossier \em{user-files} contient les différents fichiers que l'utilisateur crée pour écrire ses scénarios. Le dossier \em{scenarios} contient les scripts écrits avec le DSL de Gatling. Le dossier \em{request-bodies} contient les corps de requête à être envoyés tels quels, alors que le dossier \em{template} contient des templates pouvant être complétés lors de l'exécution du scénario avant d'être envoyés. Le dossier \em{seeds} quant à lui contient les jeux de données utilisés par les feeders.
 
@@ -70,7 +72,7 @@ Ce module permet de proposer un menu au testeur, et ensuite, de charger dynamiqu
 
 \subsection{Gatling Core}
 \subsubsection{Présentation}
-Ce module contient toutes les fonctionnalités au coeur de Gatling, et sert aussi de base aux autres en fournissant une API commune à tous les modules, notamment en ce qui concerne l'action \em{requête} qui servira de base pour tous les protocoles implémentés à l'avenir. Le schéma de la figure \ref{gatling_core} présente les divers composants de ce module.
+Ce module contient toutes les fonctionnalités au coeur de Gatling, et sert aussi de base aux autres en fournissant une API commune à tous les modules, notamment en ce qui concerne l'action \em{Request} qui servira de base pour tous les protocoles implémentés à l'avenir. Le schéma de la figure \ref{gatling_core} présente les divers composants de ce module.
 
 \begin{figure}[h]
 \begin{center}
@@ -95,7 +97,7 @@ Les composants de Gatling Core sont les suivants :
 \item[Runner] Cette API permet elle de définir la façon dont va s'exécuter le scénario.
 \end{description}
 
-\subsection{Gatling Http}
+\subsection{Gatling HTTP}
 \subsubsection{Présentation}
 Ce module permet d'utiliser Gatling pour tester des applications qui utilisent le protocole HTTP afin de communiquer, ce sont majoritairement des applications web. Les verbes HTTP supportés par ce module sont PUT, POST, GET et DELETE, ce qui rend possible le test d'applications RESTful et des webservices REST. Le schéma de la figure \ref{gatling_http} présente les divers composants de ce module.
 
@@ -127,8 +129,9 @@ Ce module permet de générer les rapports de simulation et de calculer les stat
 \label{gatling_stats}
 \end{figure}
 
+\vfill
 \subsubsection{Fonctionnement}
-Les statistiques sont générées selon le modèle de la figure \ref{stats_gen}. Lors de l'exécution du scénario, le moteur enregistre les résultats de chaque requête dans un fichier. Ce fichier est ensuite analysé par un extracteur de données qui récupère et formatte les données utiles à la génération d'un graphique. Ces données sont ensuite mise en forme par les presenters et enfin, un fichier de rapport est créé au format HTML grâce à l'utilisation de templates, comme vu section \ref{sec_scalate}. En parallèle de la génération de rapports au format HTML, des fichiers au format TSV sont créés.
+Les statistiques sont générées selon le modèle de la figure \ref{stats_gen}. Lors de l'exécution du scénario, le moteur enregistre les résultats de chaque requête dans un fichier. Ce fichier est ensuite analysé par un \em{extracteur de données} qui récupère et formate les données utiles à la génération d'un graphique. Ces données sont ensuite mise en forme par les \em{presenters} et enfin, un fichier de rapport est créé au format HTML grâce à l'utilisation de templates, comme vu section \ref{sec_scalate}. En parallèle de la génération de rapports au format HTML, des fichiers au format TSV sont créés.
 
 \begin{figure}[h]
 \begin{center}
@@ -150,34 +153,33 @@ La figure \ref{stats_exp} représente le résultat obtenu pour le détail d'une 
 
 \section{Le DSL}
 \subsection{Analyse d'un test de charge}
-Afin de créer un DSL utile et simple à utiliser par les futurs utilisateurs de Gatling, une analyse d'une simulation (ou test de charge) a été faite afin de repérer les éléments que contient un scénario.
+Afin de créer un DSL simple à utiliser, une analyse été faite afin de repérer les éléments que contiennent un scénario et une simulation.
 
 \subsubsection{Définition d'un scénario}
 Afin de définir un scénario d'utilisation, la personne qui l'écrit doit pouvoir spécifier :
 \begin{itemize}
-  \item Le nom du scénario
+  \item Le nom du scénario ;
   \item Les requêtes faites par l'utilisateur, et pour chaque requête :
   \begin{itemize}
-    \item Le type de la requête (HTTP pour l'instant)
-	\item Le nom de la requête (pour facilement identifier la requête dans les statistiques)
-    \item Le verbe HTTP utilisé (POST, PUT, GET ou DELETE)
-    \item Les paramètres de la requête
-    \item Le corps de la requête si possible
+    \item Le type de la requête (HTTP pour l'instant) ;
+	\item Le nom de la requête (pour facilement identifier la requête dans les statistiques) ;
+    \item Le verbe HTTP utilisé (POST, PUT, GET ou DELETE) ;
+    \item Les paramètres de la requête ;
+    \item Le corps de la requête si possible ;
   \end{itemize}
-  \item Les pauses qui simulent le temps de lecture de l'utilisateur
+  \item Les pauses qui simulent le temps de lecture de l'utilisateur.
 \end{itemize}
 
 \subsubsection{Exécution d'une simulation}
-Une fois les scénarios écrits, il faudra les exécuter, et le testeur doit pouvoir configurer cette exécution. Voici les éléments configurables :
+Une fois les scénarios écrits, il faudra les exécuter. Le testeur doit pouvoir configurer cette exécution. Voici les éléments configurables :
 \begin{itemize}
-  \item Le nombre d'utilisateurs simultanés pour ce scénario
-  \item La rampe de démarrage des utilisateurs. Ceci permet de simuler un arrivage progressif des utilisateurs sur le site par exemple
-  \item Le démarrage du scénario. En effet, plusieurs scénarios peuvent être exécutés durant une simulation, on peut donc spécifier à quel moment de la simulation le scénario doit démarrer.
+  \item Le nombre d'utilisateurs simultanés pour ce scénario ;
+  \item La rampe de démarrage des utilisateurs. Ceci permet de simuler un arrivage progressif des utilisateurs sur le site par exemple ;
+  \item Le démarrage du scénario. En effet, plusieurs scénarios peuvent être exécutés durant une simulation, on peut donc spécifier à quel moment de la simulation le scénario doit débuter.
 \end{itemize}
 
 \subsection{Définition du DSL}
-Les éléments que l'analyse a permis de découvrir représentent la base du DSL. Pour fournir aux testeurs un DSL plus efficace et qui les aide à écrire des scénarios complexes plus simplement, d'autres éléments ont été ajoutés. Pour chaque éléments, vous trouverez un exemple du DSL qui correspond. Le logiciel étant Open Source et destiné aux entreprises du monde entier, le DSL est en anglais.
-
+Les éléments que l'analyse a permis de découvrir représentent la base du DSL. Pour chaque élément, vous trouverez un exemple du DSL qui correspond. Le logiciel étant Open Source et destiné aux entreprises du monde entier, le DSL est en anglais.
 
 \subsubsection{Déclaration d'une requête HTTP}
 
@@ -242,9 +244,9 @@ val execution = runSimulations(stdUserConf)
 Afin de simplifier l'écriture des scénarios et d'augmenter les possibilités du DSL, des fonctionnalités supplémentaires ont été ajoutées.
 
 \subsubsection{Captures et assertions}
-Afin de valider les requêtes, le testeur pourra utiliser des assertions sur la réponse HTTP, permettant de vérifier sont code, ainsi que la présence de certains headers ou des expressions dans le corps de la réponse. Cela permettra par exemple de valider une requête de login avant d'exécuter le reste du scénario. 
+Afin de valider les requêtes, le testeur pourra utiliser des assertions sur la réponse HTTP, permettant de vérifier son code, ainsi que la présence de certains \em{headers} ou des expressions dans le corps de la réponse. Cela permettra par exemple de valider une requête de login avant d'exécuter le reste du scénario. 
 
-Les assertions sont basées sur les captures qui permettent de faire des recherches par expression régulière ou par XPath. Ces captures sont exécutées sur la réponse HTTP reçue par le moteur de simulation. Chacun de ces \em{processeur} est disponible indépendament de l'autre dans le DSL, le listing \ref{use_capture_and_assertion} montre comment ils sont utilisés.
+Les assertions sont basées sur les captures qui permettent de faire des recherches par expression régulière ou par XPath. Ces captures sont exécutées sur la réponse HTTP reçue par le moteur de simulation. Chacun de ces \em{processeors} est disponible indépendamment de l'autre dans le DSL, le listing \ref{use_capture_and_assertion} montre comment ils sont utilisés.
 
 \begin{lstlisting}[caption={Utilisation des captures et assertions},label={use_capture_and_assertion}]
 scenario("S1")
@@ -259,7 +261,7 @@ scenario("S1")
 \end{lstlisting}
 
 \subsubsection{Contexte}
-Un contexte est présent pour chaque scénario, et est propre à un seul utilisateur simulé par ce scénario. La présence de ce contexte permet au testeur de faire passer des infos de requête en requêtes.
+Un contexte est propre à un seul utilisateur simulé par un scénario. La présence de ce contexte permet au testeur de faire passer des infos de requêtes en requêtes.
 
 Le testeur pourra extraire des données des réponses HTTP afin de les stocker dans le contexte, cela se fera en utilisant des captures (ou des assertions), les valeurs seront ensuite accessibles dans le reste du scénario. Le listing \ref{use_context} montre l'utilisation du contexte dans le cadre d'un scenario simple.
 
@@ -277,7 +279,8 @@ scenario("S1")
 \end{lstlisting}
 
 \subsubsection{Feeders (ou Seeders)}
-La simulation d'un grand nombre d'utilisateurs peut nécessiter l'utilisation d'un aussi grand nombre de comptes différents sur l'application testée. Pour permettre l'utilisation d'un compte différent par utilisateur simulé, Gatling propose des Feeders\footnote{ou Seeders, le nom n'étant pas encore figé}. Ces éléments permettent d'utiliser une source de données telles qu'un fichiers de type CSV pour y récupérer des informations à utiliser dans le scénario. Le listing \ref{use_feeder} montre l'utilisation de ces Feeders dans le cadre d'un scénario simple.
+\label{feeders}
+La simulation d'un grand nombre d'utilisateurs peut nécessiter l'utilisation d'un nombre aussi grand de comptes différents sur l'application testée. Pour permettre l'utilisation d'un compte différent par utilisateur simulé, Gatling propose des Feeders\footnote{ou Seeders, le nom n'étant pas encore figé}. Ces éléments permettent d'utiliser une source de données telles qu'un fichier de type CSV pour y récupérer des informations à utiliser dans le scénario. Le listing \ref{use_feeder} montre l'utilisation de ces Feeders dans le cadre d'un scénario simple.
 
 \begin{lstlisting}[caption={Utilisation des Feeders},label={use_feeder}]
 // Declaration du Feeder
